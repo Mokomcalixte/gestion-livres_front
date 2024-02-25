@@ -1,53 +1,6 @@
-// import axios from "axios";
-// import {useState} from "react";
-// import {useNavigate} from "react-router-dom";
-
-// const LoginForm = () =>{
-//     const [inputs, setInputs] = useState({
-//         email:'',
-//         password:''
-//     })
-//     const navigate = useNavigate();
-
-//     const handleSubmit = (e) =>{
-//         e.prevenDefault()
-// }
-
-
-// import React from 'react';
-// import styled from 'styled-components';
-
-// const sharedStyles = `
-//   border: none;
-//   border-radius: 5px;
-//   font-size: 1rem;
-//   padding: 10px;
-// `;
-
-// const Button = styled.button`
-//   ${sharedStyles}
-//   background-color: ${props => props.color};
-//   color: ${props => props.color === '#fff' ? '#333' : '#fff'};
-// `;
-
-// const Input = styled.input`
-//   ${sharedStyles}
-//   background-color: #f0f0f0;
-//   color: #333;
-// `;
-
-// function LoginForm() {
-//   return (
-//     <form>
-//       <Input placeholder="Entrez votre nom" />
-//       <Button color="#f0f0f0">
-//         Envoyer
-//       </Button>
-//     </form>
-//   );
-// }
-// export default LoginForm;
-import React, { useState } from 'react';
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
 const LoginForm = () => {
@@ -56,15 +9,28 @@ const LoginForm = () => {
         password: ''
     });
 
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Ajoutez ici la logique de gestion de la soumission du formulaire
+        
+        axios({
+            method: 'POST',
+            url: 'http://localhost:3003/login',
+            data: inputs
+        }).then((response) => {
+            console.log(response.headers['authorization'])
+            localStorage.setItem('token', response.headers['authorization'])
+            // Rediriger vers la page home après une connexion réussie
+            navigate('/home');
+        }).catch(error => {
+            console.error('Error during login:', error);
+        });
     };
 
     return (
         <LoginFormContainer onSubmit={handleSubmit}>
-         <h2>Se connecter</h2>
-
+            <h2>Se connecter</h2>
             <FormInput
                 type="email"
                 placeholder="Email"
@@ -86,7 +52,7 @@ const LoginFormContainer = styled.form`
     display: flex;
     flex-direction: column;
     max-width: 300px;
-   
+    
 `;
 
 const FormInput = styled.input`

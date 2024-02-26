@@ -33,22 +33,23 @@ const Home = () => {
           <SearchBar type="text" placeholder="Rechercher..." />
           <NavButton>Connexion</NavButton>
           <NavButton onClick={handleLoginClick}>Login</NavButton>
-          <NavButton>Liste des livres</NavButton>
+          {/*<NavButton>Liste des livres</NavButton>*/}
         </div>
 
 
       </NavbarWrapper>
       <div>
-            <ul>
-                {books.map((book, index) => (<li key={index}>
-                    <div>
-                        <img src={book?.lienImage}/>
-                        <div className='titreLivre'>{book? book.titre : "No title"}</div>
-                        <div className='auteurLivre'>{book? book.auteur : "Pas d'auteur"}</div>
-                    </div>
-                </li>)
-                )}
-            </ul>
+        <BookListContainer>
+            {books.map((book, index) => (
+                <BookItem key={index}>
+                    <BookImage src={book?.lienImage} />
+                    <div>{book ? book.titre : "No title"}</div>
+                    <div>{book ? book.auteur : "Pas d'auteur"}</div>
+                    <div>{book ? book.date : "Pas de date"}</div>
+                    <div>{book ? book.genre : "Pas de genre"}</div>
+                </BookItem>
+            ))}
+                </BookListContainer>
         </div>
     </div>
     );
@@ -81,6 +82,21 @@ const SearchBar = styled.input`
   border: 2px solid blue;
   border-radius: 5px;
   margin: 0 5px 0 39px;
+`;
+
+const BookListContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px; /* Espace entre chaque élément */
+`;
+
+const BookItem = styled.div`
+    border-color: red;
+
+`;
+const BookImage = styled.img`
+    
 `;
 
 export default Home;

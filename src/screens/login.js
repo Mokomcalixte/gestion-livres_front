@@ -1,7 +1,7 @@
  import { useNavigate } from "react-router-dom";
  import styled from 'styled-components';
  import LoginForm from "../components/loginForm";
-import biblio from "../assets/images/biblio.jpg"
+import backlogin from "../assets/images/backlogin.png"
 import Home from "./home";
 
  const Login = () =>{
@@ -20,7 +20,7 @@ const LoginContainer = styled.div`
 display: flex;
 align-items: center;
 justify-content: center;
-{*background-image: url(${biblio}); *}
+{background-image: url(${backlogin}); }
 background-size: cover;
 background-position: center;
 height: 80vh; /* Faites en sorte que le conteneur prenne toute la taille de l'écran */
